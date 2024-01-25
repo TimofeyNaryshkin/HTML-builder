@@ -84,18 +84,24 @@ fs.readFile(path.join(__dirname, 'template.html'), 'utf-8', (error, data) => {
           if (regexp.test(templateStr)) {
             templateStr = templateStr.replace(regexp, componentContent[0]);
           }
-          fs.writeFile(
-            path.join(__dirname, 'project-dist', 'index.html'),
-            templateStr,
-            (error) => {
-              if (error) throw error;
-            },
-          );
+          if (!templateStr.includes('{{')) {
+            writeIndex(templateStr);
+          }
         });
       }
     },
   );
 });
+
+function writeIndex(temp) {
+  fs.writeFile(
+    path.join(__dirname, 'project-dist', 'index.html'),
+    temp,
+    (error) => {
+      if (error) throw error;
+    },
+  );
+}
 
 //create style.css
 fs.readdir(
