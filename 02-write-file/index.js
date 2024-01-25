@@ -11,7 +11,7 @@ rl.on('line', (data) => {
   if (data === 'exit') {
     exitFile();
   } else {
-    output.write(data);
+    output.write(`${data}\n`);
   }
 });
 
