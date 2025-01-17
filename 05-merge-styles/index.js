@@ -20,12 +20,12 @@ fs.readdir(stylesDir, { withFileTypes: true }, (err, files) => {
     });
     stream.on('end', () => {
       stylesArray.push(fileData);
+      filesProcessed++;
       if (filesProcessed === cssFiles.length) {
         fs.writeFile(bundlePath, stylesArray.join('\n'), (err) => {
           if (err) throw err;
         });
       }
     });
-    filesProcessed++;
   });
 });
